@@ -3,7 +3,9 @@ import 'dotenv/config';
 import authController from './controllers/authController';
 import usersController from './controllers/usersController';
 import postsController from './controllers/postsController';
+
 const app = exp();
+
 app.use(exp.json());
 app.use('/auth', authController);
 app.use('/users', usersController);
