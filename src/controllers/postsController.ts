@@ -23,7 +23,6 @@ router.get('/search',async (req : Request, res : exp.Response):Promise<void> => 
 })
 
 
-
 router.get('/:id',async (req : Request, res : exp.Response):Promise<void> => {
     try {
         res.status(200).json({
@@ -41,7 +40,6 @@ router.get('/:id',async (req : Request, res : exp.Response):Promise<void> => {
         });
     }
 })
-
 
 router.post('/',async (req : Request, res : exp.Response):Promise<void> => {
     try {
@@ -79,5 +77,39 @@ router.delete('/:id',async (req : Request, res : exp.Response):Promise<void> => 
     }
 })
 
+router.put('/:id',async (req : Request, res : exp.Response):Promise<void> => {
+    try {
+        res.status(200).json({
+            err: false,
+            message: 'update ok',
+            data: undefined
+        });
+        
+    }
+    catch(err) {
+        res.status(400).json({
+            err: true,
+            message: err,
+            data: null
+        });
+    }
+})
 
+router.patch('/like/:id',async (req : Request, res : exp.Response):Promise<void> => {
+    try {
+        res.status(200).json({
+            err: false,
+            message: 'patch ok',
+            data: undefined
+        });
+        
+    }
+    catch(err) {
+        res.status(400).json({
+            err: true,
+            message: err,
+            data: null
+        });
+    }
+})
 export default router
