@@ -13,30 +13,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const postsService_1 = __importDefault(require("../services/postsService"));
 const router = express_1.default.Router();
-router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/search/:filterString', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json({
-            err: false,
-            message: '',
-            data: undefined
-        });
+        const result = yield postsService_1.default.searchPost(req.params.filterString);
+        if (result) {
+            console.log(req.params.filterString);
+            res.status(200).json({
+                err: false,
+                message: 'success search',
+                data: result
+            });
+        }
+        else
+            throw new Error('can not add new post');
     }
     catch (err) {
-        res.status(400).json({
+        res.status(500).json({
             err: true,
             message: err,
             data: null
         });
     }
 }));
-router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json({
-            err: false,
-            message: '',
-            data: undefined
-        });
+        const postsArray = yield postsService_1.default.getPosts();
+        if (postsArray) {
+            res.status(200).json({
+                err: false,
+                message: 'success to get posts',
+                data: postsArray
+            });
+        }
     }
     catch (err) {
         res.status(400).json({
@@ -48,27 +58,64 @@ router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 }));
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json({
-            err: false,
-            message: 'post ok',
-            data: undefined
-        });
+        const result = yield postsService_1.default.savePost(req.body);
+        if (result) {
+            res.status(200).json({
+                err: false,
+                message: 'new post added',
+                data: { post_id: result }
+            });
+        }
+        else
+            throw new Error('can not add new post');
     }
     catch (err) {
-        res.status(400).json({
+        res.status(500).json({
             err: true,
             message: err,
+            data: null
+        });
+    }
+}));
+router.patch('/like', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { post_id, user_id } = req.query;
+        if (!post_id || !user_id) {
+            throw new Error('post_id and user_id are required');
+        }
+        const registerInPost = yield postsService_1.default.addLikeToPost(post_id, user_id);
+        const registerInUser = yield postsService_1.default.registerLikeInUser(post_id, user_id);
+        if (registerInPost && registerInUser) {
+            res.status(200).json({
+                err: false,
+                message: 'new like added',
+                data: null
+            });
+        }
+        else
+            throw new Error('can not add new like');
+    }
+    catch (err) {
+        console.log(err);
+        res.status(400).json({
+            err: true,
+            message: err.message,
             data: null
         });
     }
 }));
 router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json({
-            err: false,
-            message: 'delete ok',
-            data: undefined
-        });
+        const result = yield postsService_1.default.deletePost(req.params.id);
+        if (result) {
+            res.status(200).json({
+                err: false,
+                message: 'delete ok',
+                data: undefined
+            });
+        }
+        else
+            throw new Error('can not delete post');
     }
     catch (err) {
         res.status(400).json({
@@ -78,29 +125,18 @@ router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 }));
-router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.patch('/edit', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json({
-            err: false,
-            message: 'update ok',
-            data: undefined
-        });
-    }
-    catch (err) {
-        res.status(400).json({
-            err: true,
-            message: err,
-            data: null
-        });
-    }
-}));
-router.patch('/like/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        res.status(200).json({
-            err: false,
-            message: 'patch ok',
-            data: undefined
-        });
+        const result = yield postsService_1.default.editPost(req.body);
+        if (result) {
+            res.status(200).json({
+                err: false,
+                message: 'update ok',
+                data: undefined
+            });
+        }
+        else
+            throw new Error('can not update post');
     }
     catch (err) {
         res.status(400).json({

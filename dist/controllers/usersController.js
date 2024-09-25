@@ -47,21 +47,21 @@ router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
 }));
-router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/register', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield userService_1.default.createNewUser(req.body);
         if (result) {
             res.status(200).json({
                 err: false,
-                message: 'post ok',
+                message: 'new user added',
                 data: undefined
             });
         }
         else
-            throw new Error('post not ok');
+            throw new Error('can not add new user');
     }
     catch (err) {
-        res.status(400).json({
+        res.status(500).json({
             err: true,
             message: err,
             data: null

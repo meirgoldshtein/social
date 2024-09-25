@@ -1,0 +1,21 @@
+[
+  {
+    "name": "meir",
+    "email": "@gmail.com",
+    "phone": "0543210321",
+    "password": "fgfgdfg645745",
+    "nickname": "starter",
+    "description": "start starting strong strings",
+    "image_url": "https://images.kikar.co.il/cdn-cgi/image/format=jpeg,fit=contain,width=300/2024/07/23/4a97cd20-48ce-11ef-8b1c-a17fe35b85fc__h748_w1024.png",
+    "followers_id": [],
+    "following_id": [],
+    "posts_id": [],
+    "like_posts_id": [
+      "3004c72a-04fc-434e-8aff-c648d74b1c50",
+      "98ec44c4-802d-4193-abce-ae43a3b03062"
+    ],
+    "dislike_posts_id": [],
+    "user_id": "428af7c9-33fa-4fdc-81c8-58f324ba52fd",
+    "created_at": "2024-09-25T11:52:13.384Z"
+  }
+]

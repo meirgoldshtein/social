@@ -4,13 +4,13 @@ import { v4 as uuidv4} from 'uuid';
 
 export default class User implements IUser {
     
-    public user_id
-    public created_at
-    public followers_id = []
-    public following_id = []
-    public posts_id = []
-    public like_posts_id = []
-    public dislike_posts_id = []
+    public user_id : string
+    public created_at : Date
+    public followers_id : string[] = []
+    public following_id : string[] = []
+    public posts_id : string[] = []
+    public like_posts_id : string[] = []
+    public dislike_posts_id : string[] = []
 
 
 

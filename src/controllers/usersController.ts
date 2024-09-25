@@ -43,21 +43,21 @@ router.get('/:id',async (req : Request, res : exp.Response):Promise<void> => {
 })
 
 
-router.post('/',async (req : Request<any, any, newUserDTO>, res : Response):Promise<void> => {
+router.post('/register',async (req : Request<any, any, newUserDTO>, res : Response):Promise<void> => {
     try {
         const result = await userService.createNewUser(req.body)
         if (result)
         {
             res.status(200).json({
                 err: false,
-                message: 'post ok',
+                message: 'new user added',
                 data: undefined
             });
         }
-        else throw new Error('post not ok');      
+        else throw new Error('can not add new user');      
     }
     catch(err) {
-        res.status(400).json({
+        res.status(500).json({
             err: true,
             message: err,
             data: null
