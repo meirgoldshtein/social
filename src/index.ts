@@ -7,6 +7,7 @@ import postsController from './controllers/postsController';
 const app = exp();
 
 app.use(exp.json());
+
 app.use('/auth', authController);
 app.use('/users', usersController);
 app.use('/posts', postsController);

@@ -5,12 +5,12 @@ export default interface IUser {
     email: string
     phone: string
     password: string
-    createdAt: Date
+    created_at: Date
     followers_id: string[]
     following_id: string[]
     posts_id: string[]
-    likes_id: string[]
-    dislikes_id: string[]
+    like_posts_id : string []
+    dislike_posts_id : string []
     nickname: string
     description : string
     image_url : string

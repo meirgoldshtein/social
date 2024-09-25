@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const userService_1 = __importDefault(require("../services/userService"));
 const router = express_1.default.Router();
 router.get('/search', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -48,11 +49,16 @@ router.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 }));
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json({
-            err: false,
-            message: 'post ok',
-            data: undefined
-        });
+        const result = yield userService_1.default.createNewUser(req.body);
+        if (result) {
+            res.status(200).json({
+                err: false,
+                message: 'post ok',
+                data: undefined
+            });
+        }
+        else
+            throw new Error('post not ok');
     }
     catch (err) {
         res.status(400).json({
