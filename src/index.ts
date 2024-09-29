@@ -3,11 +3,12 @@ import 'dotenv/config';
 import authController from './controllers/authController';
 import usersController from './controllers/usersController';
 import postsController from './controllers/postsController';
+import cookieParser from 'cookie-parser';
+
 
 const app = exp();
-
 app.use(exp.json());
-
+app.use(cookieParser());
 app.use('/auth', authController);
 app.use('/users', usersController);
 app.use('/posts', postsController);

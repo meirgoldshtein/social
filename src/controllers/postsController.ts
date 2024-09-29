@@ -4,6 +4,7 @@ import PostService from '../services/postsService';
 import postDTO from '../interfaces/postDTO';
 import editPostDTO from '../interfaces/editPostDTO';
 import e from 'express';
+import verifyUser from '../midlewares/verifyUser';
 
 const router : Router = exp.Router();
 
@@ -52,7 +53,7 @@ router.get('/',async (req : Request, res : Response):Promise<void> => {
     }
 })
 
-router.post('/',async (req : Request<any, any, postDTO>, res : exp.Response):Promise<void> => {
+router.post('/',verifyUser ,async (req : Request<any, any, postDTO>, res : exp.Response):Promise<void> => {
     try {
         const result = await PostService.savePost(req.body);
         if (result){

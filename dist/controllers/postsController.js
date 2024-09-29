@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const postsService_1 = __importDefault(require("../services/postsService"));
+const verifyUser_1 = __importDefault(require("../midlewares/verifyUser"));
 const router = express_1.default.Router();
 router.get('/search/:filterString', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -56,7 +57,7 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
 }));
-router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/', verifyUser_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield postsService_1.default.savePost(req.body);
         if (result) {

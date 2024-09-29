@@ -100,5 +100,20 @@
     "is_tailed": true,
     "post_id": "4799e3b9-53b9-4b11-9b8d-744307db5243",
     "created_at": "2024-09-25T12:27:04.034Z"
+  },
+  {
+    "user_id": "428af7c9-33fa-4fdc-81c8-58f324ba52fd",
+    "content": "bla bla bla",
+    "comments_count": 0,
+    "responses_id": [],
+    "views_count": 0,
+    "likes_count": 0,
+    "dislikes_count": 0,
+    "dislikes_by": [],
+    "likes_by": [],
+    "is_root": true,
+    "is_tailed": true,
+    "post_id": "7e8f1319-10d3-4dfa-b2a7-3d241b879d95",
+    "created_at": "2024-09-29T12:57:25.587Z"
   }
 ]

@@ -12,36 +12,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const authService_1 = __importDefault(require("../services/authService"));
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.status(200).json({
+        const token = yield authService_1.default.login(req.body);
+        console.log(token);
+        if (token instanceof Error)
+            throw token;
+        res.cookie('token', token).status(200).json({
             err: false,
-            message: 'login ok',
-            data: undefined
+            message: 'hear is your token',
+            data: token
         });
     }
     catch (err) {
-        res.status(400).json({
+        const [status, message] = err.message.split(':');
+        console.log(status, message);
+        res.status(Number(status)).json({
             err: true,
-            message: err,
-            data: null
-        });
-    }
-}));
-router.delete('/logout', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        res.status(200).json({
-            err: false,
-            message: 'logout ok',
-            data: undefined
-        });
-    }
-    catch (err) {
-        res.status(400).json({
-            err: true,
-            message: err,
+            message: message || 'Sorry not token generated, please try again',
             data: null
         });
     }

@@ -1,42 +1,33 @@
-
+import AuthService from '../services/authService';
+import LoginDTO from '../interfaces/LoginDTO';
 import exp, {Router, Request} from 'express';
+
 
 const router : Router = exp.Router();
 
-router.post('/login',async (req : Request, res : exp.Response):Promise<void> => {
+router.post('/login',async (req : Request<any, any, LoginDTO>, res : exp.Response):Promise<void> => {
     try {
-        res.status(200).json({
+        const token = await AuthService.login(req.body);
+        console.log(token)
+        if (token instanceof Error) throw token;
+        res.cookie('token', token).status(200).json({
             err: false,
-            message: 'login ok',
-            data: undefined
+            message: 'hear is your token',
+            data: token
         });
         
     }
     catch(err) {
-        res.status(400).json({
+        const [status, message] = (err as Error).message.split(':');
+        console.log(status, message);
+        res.status(Number(status)).json({
             err: true,
-            message: err,
+            message: message || 'Sorry not token generated, please try again',
             data: null
         });
     }
 })
 
-router.delete('/logout',async (req : Request, res : exp.Response):Promise<void> => {
-    try {
-        res.status(200).json({
-            err: false,
-            message: 'logout ok',
-            data: undefined
-        });
-        
-    }
-    catch(err) {
-        res.status(400).json({
-            err: true,
-            message: err,
-            data: null
-        });
-    }
-})
+
 
 export default router

@@ -11,6 +11,7 @@ export default class User implements IUser {
     public posts_id : string[] = []
     public like_posts_id : string[] = []
     public dislike_posts_id : string[] = []
+    public token? : string
 
 
 
